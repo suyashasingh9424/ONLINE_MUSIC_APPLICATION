@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Music</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #f8f9fa;">
+
+<div class="container mt-5">
+  <h1 style="color: #343a40;">All Music</h1>
+  <% @musics.each do |music| %>
+    <div class="card mb-3" style="background-color: #c3e6cb; color: #343a40;">
+      <div class="card-body">
+        <h3 class="card-title"><%= music.title %></h3>
+        <% if music.artist.present? %>
+          <p class="card-text"><strong>Artist:</strong> <%= music.artist.name %></p>
+        <% else %>
+          <p class="card-text"><strong>Artist:</strong> Unknown</p>
+        <% end %>
+        <% if music.audio_file.attached? %>
+          <audio controls class="mb-2">
+            <source src="<%= url_for(music.audio_file) %>" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+        <% else %>
+          <p class="card-text">No audio file attached</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to 'Back', dashboard_path(current_user.id), class: 'btn btn-secondary mb-3' %>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

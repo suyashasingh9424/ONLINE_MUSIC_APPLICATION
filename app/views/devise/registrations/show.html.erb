@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Show Service</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  
+  <style>
+    body {
+      background-color: #ffdab9;
+      color: #333;
+    }
+
+    .container {
+      background-color: #343a40;
+      color: black;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <% if @user.role=="admin"%>
+      <h1 class="mb-4 text-center">Admin Details</h1>
+      <%else%>
+      <h1 class="mb-4 text-center">User Details</h1>
+      <%end%>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text"><strong>Email:</strong> <%= @user.email %></p>
+          <p class="card-text"><strong>Name:</strong> <%= @user.name %></p>
+          <p class="card-text"><strong>Address:</strong> <%= @user.address %></p>
+          <p class="card-text"><strong>Age:</strong> <%= @user.age %></p>
+          <p class="card-text"><strong>Contact:</strong> <%= @user.contact %></p>
+          <p class="card-text"><strong>Gender:</strong> <%= @user.gender %></p>
+          <p class="card-text"><strong>City:</strong> <%= @user.city %></p>
+          <p class="card-text"><strong>Pincode:</strong> <%= @user.pincode %></p>
+
+          <%= link_to "Back", dashboard_path(current_user.id), class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

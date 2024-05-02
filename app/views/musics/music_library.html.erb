@@ -1,0 +1,49 @@
+<h1>All Music</h1>
+
+<%= form_tag search_musics_path, method: :get, id: 'search-form' do %>
+  <%= text_field_tag :search, params[:search], placeholder: 'Search for a song or artist...' %>
+  <%= submit_tag 'Search', id: 'search-submit' %>
+<% end %>
+
+<div id="music-list">
+  <% @musics.each do |music| %>
+    <div class="music-item">
+      <% if music.artist.present? %>
+        <p><strong>Artist:</strong> <%= music.artist.name %></p>
+      <% end %>
+      <p><strong>Title:</strong> <%= music.title %></p>
+      <% if music.audio_file.attached? %>
+        <audio controls>
+          <source src="<%= rails_blob_path(music.audio_file) %>" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+        <br>
+        <%= link_to 'Download', rails_blob_url(music.audio_file), download: true %>
+      <% else %>
+        <p>No audio file attached.</p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<br>
+<%= link_to 'Back to Dashboard', dashboard_path(current_user.id), class: 'btn btn-primary' %>
+
+<script>
+  // Filter songs based on search query
+  document.getElementById('search-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var searchQuery = document.getElementById('search-form').elements['search'].value;
+    var musicItems = document.getElementsByClassName('music-item');
+    for (var i = 0; i < musicItems.length; i++) {
+      var musicItem = musicItems[i];
+      var title = musicItem.getElementsByTagName('p')[1].innerText.toLowerCase();
+      var artist = musicItem.getElementsByTagName('p')[0].innerText.toLowerCase();
+      if (title.includes(searchQuery.toLowerCase()) || artist.includes(searchQuery.toLowerCase())) {
+        musicItem.style.display = 'block';
+      } else {
+        musicItem.style.display = 'none';
+      }
+    }
+  });
+</script>

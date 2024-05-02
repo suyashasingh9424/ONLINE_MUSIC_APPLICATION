@@ -1,0 +1,16 @@
+<h1>Follow Artists</h1>
+
+<ul>
+  <% @artists.each do |artist| %>
+    <li>
+      <strong><%= artist.name %></strong><br>
+      <%= artist.bio %>
+      <% if !current_user.following?(artist) %>
+        <%= link_to 'Follow', follow_artist_path(artist), method: :post, class: 'btn btn-primary' %>
+      <% else %>
+        <span class="badge badge-secondary">Following</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+

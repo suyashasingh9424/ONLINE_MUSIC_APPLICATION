@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Page</title>
+
+  <!-- Bootstrap 4 CDN link -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #343a40;
+      padding: 15px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .dashboard-container {
+      max-width: 1200px;
+      margin: auto;
+      margin-top: 20px;
+      background-color: #f8f9fa; /* Light gray background */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .panel {
+      background-color: #fff; /* White background */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .welcome-text {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .btn-custom {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to Your Dashboard</h1>
+  </header>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-custom' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Edit Profile', edit_user_registration_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'View Profile', show_user_profile_path(id: current_user.id), class: 'nav-link' %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+  <% if @user.role == "admin" %>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="panel">
+            <p class="welcome-text">Welcome, <%= current_user.email %></p>
+            <%= link_to 'Add Music', new_music_path, class: 'btn btn-info btn-custom mb-4' %>
+            <%= link_to 'Add Artist', new_artist_path, class: 'btn btn-warning btn-custom mb-4' %>
+            <%= link_to 'View All Users', users_view_all_users_path , class: 'btn btn-primary btn-custom mb-4' %>
+            <%= link_to 'View All Playlist', class: 'btn btn-secondary btn-custom mb-4' %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="panel">
+            <p class="welcome-text">Welcome, <br><%= current_user.email %> (user)</p>
+            <%= link_to 'Home',home_user_home_page_path , class: 'btn btn-info btn-custom mb-4' %>
+            <%= link_to 'Search Music',music_library_path , class: 'btn btn-warning btn-custom mb-4' %>
+            <%= link_to 'Create Playlist',new_playlist_path , class: 'btn btn-primary btn-custom mb-4' %>
+            <%= link_to 'Follow Artists',follow_artist_path , class: 'btn btn-secondary btn-custom mb-4' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Bootstrap JS (optional, if you need it) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

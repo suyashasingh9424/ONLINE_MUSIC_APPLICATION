@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+    }
+    .jumbotron {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+    .btn-secondary:hover {
+      background-color: #545b62;
+      border-color: #545b62;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4"><%= @artist.name %></h1>
+    <p class="lead"><strong>Bio:</strong> <%= @artist.bio %></p>
+    <%= link_to 'Back', artists_path, class: 'btn btn-secondary mt-3' %>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

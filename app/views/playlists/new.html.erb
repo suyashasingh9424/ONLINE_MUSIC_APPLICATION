@@ -1,0 +1,28 @@
+
+<h1>Create Playlist</h1>
+
+<%= form_with(model: @playlist, url: playlists_path, method: :post) do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+  <%= form.label :musics %>
+
+    <% Music.all.each do |music| %>
+
+      <%= check_box_tag "playlist[music_ids][]", music.id, @playlist.music_ids.include?(music.id), include_hidden: false %>
+
+      <%= label_tag "playlist[music_ids][]", music.title %>
+
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Create Playlist', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', dashboard_path(current_user.id), class: 'btn btn-secondary mb-3' %>
+<%= link_to 'My Playlists', playlists_path, class: 'btn btn-primary mb-3' %>

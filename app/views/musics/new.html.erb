@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Page Title</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    .form-container .form-group {
+      margin-bottom: 20px;
+    }
+    .form-container .form-label {
+      font-weight: bold;
+    }
+    .form-container .btn-primary {
+      background-color: #20c997;
+      border-color: #20c997;
+    }
+    .form-container .btn-primary:hover {
+      background-color: #17a2b8;
+      border-color: #17a2b8;
+    }
+    .form-container .btn-secondary {
+      background-color: #fd7e14;
+      border-color: #fd7e14;
+    }
+    .form-container .btn-secondary:hover {
+      background-color: #e8690c;
+      border-color: #e8690c;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="form-container">
+    <%= form_with(model: @music, url: musics_path, local: true, multipart: true, html: {class: "form"}) do |form| %>
+      <div class="form-group">
+        <label class="form-label" for="music_title">Title</label>
+        <%= form.text_field :title, id: "music_title", class: 'form-control' %>
+      </div>
+    
+      <div class="form-group">
+        <label class="form-label" for="music_duration">Duration</label>
+        <%= form.number_field :duration, id: "music_duration", class: 'form-control' %>
+      </div>
+    
+      <div class="form-group">
+        <label class="form-label" for="music_artist_id">Artist</label>
+        <%= form.collection_select :artist_id, Artist.all, :id, :name, { prompt: 'Select Artist' }, { id: "music_artist_id", class: 'form-control' } %>
+      </div>
+    
+      <div class="form-group">
+        <label class="form-label" for="music_audio_file">Audio File</label>
+        <%= form.file_field :audio_file, id: "music_audio_file", class: 'form-control' %>
+      </div>
+    
+      <%= form.submit 'Add Music', class: 'btn btn-primary' %>
+    <% end %>
+    <%= link_to 'Back', dashboard_path(current_user.id), class: 'btn btn-secondary mb-3' %>
+    <%= link_to 'View All Music', musics_path, class: 'btn btn-primary mb-3' %>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
